@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+
 const HotCollections = () => {
-  const [carousel, setCarousel] = useState([])
+  const [carousel, setCarousel] = useState([]);
   async function datacollection() {
-    const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections")
-   setCarousel(data)
-    }
+    const { data } = await axios.get(
+      "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
+    );
+    setCarousel(data);
+  }
   useEffect(() => {
     datacollection();
-  }, [])
+  }, []);
+
+  var script = document.createElement("script");
+  script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+  script.onload = function () {
+    console.log("jQuery has been loaded!", window.jQuery);
+  };
+  document.head.appendChild(script);
+
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
@@ -20,6 +34,20 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
+          <OwlCarousel className="owl-theme" loop margin={10} nav>
+            <div class="item">
+              <h4>1</h4>
+            </div>
+            <div class="item">
+              <h4>2</h4>
+            </div>
+            <div class="item">
+              <h4>3</h4>
+            </div>
+            <div class="item">
+              <h4>4</h4>
+            </div>
+          </OwlCarousel>
           {carousel.map((nft, index) => (
             <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
               <div className="nft_coll">
@@ -30,7 +58,11 @@ const HotCollections = () => {
                 </div>
                 <div className="nft_coll_pp">
                   <Link to="/author">
-                    <img className="lazy pp-coll" src={nft.authorImage} alt="" />
+                    <img
+                      className="lazy pp-coll"
+                      src={nft.authorImage}
+                      alt=""
+                    />
                   </Link>
                   <i className="fa fa-check"></i>
                 </div>
