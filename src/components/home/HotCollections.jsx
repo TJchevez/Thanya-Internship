@@ -34,7 +34,6 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-
           <OwlCarousel className="owl-theme" loop margin={10} nav>
             {carousel.map((nft, index) => (
               <div key={index}>
