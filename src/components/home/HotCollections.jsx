@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
@@ -27,13 +27,21 @@ const HotCollections = () => {
   const Nft = ({ nft }) => {
     const [img, setImage] = useState();
 
+  const mountedRef = useRef(true);
+
     useEffect(() => {
       const image = new Image();
       image.src = nft.url;
       image.onLoad = () => {
         setTimeout(() => {
-          setImage(image);
+          if (mountedRef.current) {
+            setImage(image);
+          }
         }, 300)
+      };
+      return () => {
+        //When the component unmounts
+        mountedRef.current = false;
       }
     })
   }
@@ -49,17 +57,23 @@ const HotCollections = () => {
             </div>
           </div>
           <>
-          <div className="container">
-            <div className="row">
+          <div className="owl-carousel.owl-center .owl-item.active.center">
+          <div className="owl-stage-outer">
+            <div className="owl-stage">
               <div className="nft_coll">
                 <div className="nft_wrap">
           <div className="skeleton-box skeleton-image-fluid"></div>
           </div>
           <div className="nft_coll_pp">
+          <a href="">
           <div className="skeleton-box skeleton-pp-coll"></div>
+          </a>
+          <i class="fa fa-check"></i>
           </div>
+
           <div className="skeleton-box skeleton-title"></div>
           <div className="skeleton-box skeleton-code"></div>
+          </div>
           </div>
           </div>
           </div>
