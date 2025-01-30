@@ -24,6 +24,20 @@ const HotCollections = () => {
   };
   document.head.appendChild(script);
 
+  const Nft = ({ nft }) => {
+    const [img, setImage] = useState();
+
+    useEffect(() => {
+      const image = new Image();
+      image.src = nft.url;
+      image.onLoad = () => {
+        setTimeout(() => {
+          setImage(image);
+        }, 300)
+      }
+    })
+  }
+
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
@@ -34,7 +48,26 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <OwlCarousel className="owl-theme" loop margin={10} nav>
+          <>
+          <div className="container">
+            <div className="row">
+              <div className="nft_coll">
+                <div className="nft_wrap">
+          <div className="skeleton-box skeleton-image-fluid"></div>
+          </div>
+          <div className="nft_coll_pp">
+          <div className="skeleton-box skeleton-pp-coll"></div>
+          </div>
+          <div className="skeleton-box skeleton-title"></div>
+          <div className="skeleton-box skeleton-code"></div>
+          </div>
+          </div>
+          </div>
+          </>
+          :
+          <>
+          {carousel.length > 0 && (
+            <OwlCarousel className="owl-theme" loop margin={10} nav>
             {carousel.map((nft, index) => (
               <div key={index}>
                 <div className="nft_coll">
@@ -44,7 +77,7 @@ const HotCollections = () => {
                         src={nft.nftImage}
                         className="lazy img-fluid"
                         alt=""
-                      />
+                        />
                     </Link>
                   </div>
                   <div className="nft_coll_pp">
@@ -53,7 +86,7 @@ const HotCollections = () => {
                         className="lazy pp-coll"
                         src={nft.authorImage}
                         alt=""
-                      />
+                        />
                     </Link>
                     <i className="fa fa-check"></i>
                   </div>
@@ -67,6 +100,8 @@ const HotCollections = () => {
               </div>
             ))}{" "}
           </OwlCarousel>
+        )}
+        </>
         </div>
       </div>
     </section>
