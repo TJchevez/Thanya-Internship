@@ -24,28 +24,6 @@ const HotCollections = () => {
   };
   document.head.appendChild(script);
 
-  const Nft = ({ nft }) => {
-    const [img, setImage] = useState();
-
-  const mountedRef = useRef(true);
-
-    useEffect(() => {
-      const image = new Image();
-      image.src = nft.url;
-      image.onLoad = () => {
-        setTimeout(() => {
-          if (mountedRef.current) {
-            setImage(image);
-          }
-        }, 300)
-      };
-      return () => {
-        //When the component unmounts
-        mountedRef.current = false;
-      }
-    })
-  }
-
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
@@ -78,8 +56,7 @@ const HotCollections = () => {
           </div>
           </div>
           </>
-          <div className="owl-nav">
-            <button className="owl-prev"></button>
+          <div>
           </div>
           :
           <>
