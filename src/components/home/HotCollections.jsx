@@ -78,6 +78,9 @@ const HotCollections = () => {
           </div>
           </div>
           </>
+          <div className="owl-nav">
+            <button className="owl-prev"></button>
+          </div>
           :
           <>
           {carousel.length > 0 && (
