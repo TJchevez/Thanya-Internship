@@ -55,7 +55,7 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {loading ? ( // Render carousel of skeleton loaders if loading
+          {loading ? ( 
             <OwlCarousel className="owl-theme" loop margin={10} nav>
               {Array.from({ length: 5 }).map((_, index) => (
                 <div key={index}>
