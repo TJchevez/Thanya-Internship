@@ -7,24 +7,33 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 const SkeletonLoader = () => (
-    <div className="nft__item">
-      <div className="skeleton-pp-coll skeleton-box"></div>
+  <div className="nft__item">
+    <div className="skeleton-check-image">
       <div className="skeleton-image-fluid skeleton-box"></div>
-      <div className="skeleton-title skeleton-box"></div>
-      <div className="skeleton-title skeleton-box"></div>
-      <div className="skeleton-title skeleton-box"></div>
+      <div className="skeleton-pp-coll skeleton-box"></div>
     </div>
+    <div className="skeleton-art-title skeleton-box"></div>
+    <div className="price-likes-display">
+      <div className="skeleton-title skeleton-box"></div>
+      <div className="skeleton-likes-title skeleton-box"></div>
+    </div>
+  </div>
 );
 
 const NewItems = () => {
   const [itemsCarousel, setItemsCarousel] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   async function newItemsData() {
     setLoading(true); 
-    const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems");
-    setItemsCarousel(data);
-    setLoading(false); 
+    try {
+      const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems");
+      setItemsCarousel(data); 
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false); 
+    }
   }
 
   useEffect(() => {
@@ -41,9 +50,11 @@ const NewItems = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <OwlCarousel className='owl-theme' loop margin={10} nav items={4}>
+          <OwlCarousel className="owl-theme" loop margin={10} nav items={4}>
             {loading ? (
-              Array.from({ length: 4 }).map((_, index) => (<SkeletonLoader key={index} />))
+              Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonLoader key={index} />
+              ))
             ) : (
               itemsCarousel.map((item, index) => (
                 <div className="item" key={index}>
@@ -53,7 +64,7 @@ const NewItems = () => {
                         to="/author"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
-                        title={`Creator: ${item.creatorName}`} // Assuming item has creatorName
+                        title={`Creator: ${item.creatorName}`} 
                       >
                         <img className="lazy" src={item.authorImage || AuthorImage} alt="" />
                         <i className="fa fa-check"></i>
