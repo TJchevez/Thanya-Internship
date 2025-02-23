@@ -19,7 +19,6 @@ const SkeletonLoader = () => (
       </div>
       <div className="skeleton-box skeleton-title"></div>
       <div className="skeleton-box skeleton-code"></div>
-      {/* TEST */}
     </div>
   </>
 );
@@ -52,6 +51,7 @@ const HotCollections = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
+              {/* test */}
               <h2>Hot Collections</h2>
               <div className="small-border bg-color-2"></div>
             </div>
