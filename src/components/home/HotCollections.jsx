@@ -51,10 +51,10 @@ const HotCollections = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              {/* test */}
               <h2>Hot Collections</h2>
               <div className="small-border bg-color-2"></div>
             </div>
+            {/* test */}
           </div>
           {loading ? ( 
             <OwlCarousel className="owl-theme" loop margin={10} nav>
