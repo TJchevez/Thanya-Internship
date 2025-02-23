@@ -19,6 +19,7 @@ const SkeletonLoader = () => (
       </div>
       <div className="skeleton-box skeleton-title"></div>
       <div className="skeleton-box skeleton-code"></div>
+      {/* TEST */}
     </div>
   </>
 );
