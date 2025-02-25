@@ -29,16 +29,11 @@ const HotCollections = () => {
 
   async function datacollection() {
     setLoading(true);
-    try {
       const { data } = await axios.get(
         "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
       );
       setCarousel(data);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    } finally {
       setLoading(false);
-    }
   }
 
   useEffect(() => {
@@ -51,7 +46,6 @@ const HotCollections = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              {/* test */}
               <h2>Hot Collections</h2>
               <div className="small-border bg-color-2"></div>
             </div>
