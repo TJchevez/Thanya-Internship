@@ -16713,7 +16713,11 @@ img {
   margin-bottom: 16px;
 }
 
-
+.bottom-two__skeleton-boxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .nft-image {
   height: 100%;
   width: 100%;
