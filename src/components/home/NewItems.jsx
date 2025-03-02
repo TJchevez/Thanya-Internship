@@ -1,31 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import axios from "axios";
-
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
-
 const SkeletonLoader = () => (
   <div className="nft__item">
-      <div className="skeleton-box skeleton-image-fluid" style={{height:'48vh'}}></div>
-      <div className="skeleton-pp-coll skeleton-box" style={ {top:'-360px', left:'20px'}}></div>
-      <div className="skeleton-code skeleton-box" style={ {width:'100%',maxWidth:'120px', height:'30px',left:'-60px', marginLeft:'10px'}}></div>
-      <div className="bottom-two__skeleton-boxes">
-      <div className="skeleton-code skeleton-box"></div>
-      <div className="skeleton-code skeleton-box"style={{maxWidth:'30px'}}></div>
-      </div>
+    <div className="skeleton-check-image">
+      <i className="fa fa-check"></i>
+      <div className="skeleton-box skeleton-image-fluid"></div>
+      <div className="skeleton-pp-coll skeleton-box"></div>
+    </div>
+    <div className="skeleton-art-title skeleton-box"></div>
+    <div className="price-likes-display">
+      <div className="skeleton-title skeleton-box"></div>
+      <div className="skeleton-likes-title skeleton-box"></div>
+    </div>
   </div>
 );
 
+const CountdownTimer = memo(({ expiryDate }) => {
+  const [timeLeft, setTimeLeft] = useState("00:00:00");
+
+  useEffect(() => {
+    if (!expiryDate) return;
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const expiryTime = new Date(expiryDate).getTime();
+      const timeDiff = expiryTime - now;
+
+      if (timeDiff <= 0) {
+        setTimeLeft("00:00:00");
+        return;
+      }
+
+      const hours = String(Math.floor((timeDiff / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+      const minutes = String(Math.floor((timeDiff / (1000 * 60)) % 60)).padStart(2, "0");
+      const seconds = String(Math.floor((timeDiff / 1000) % 60)).padStart(2, "0");
+      setTimeLeft(`${hours}:${minutes}:${seconds}`);
+    };
+
+ 
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval); 
+  }, [expiryDate]);
+
+  return <div className="de_countdown">{timeLeft}</div>;
+});
 
 const NewItems = () => {
   const [itemsCarousel, setItemsCarousel] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [countdowns, setCountdowns] = useState({});
 
   async function newItemsData() {
     setLoading(true);
@@ -34,38 +63,11 @@ const NewItems = () => {
     );
     setItemsCarousel(data);
     setLoading(false);
-    startCountdowns(data);
   }
 
   useEffect(() => {
     newItemsData();
   }, []);
-
-  const startCountdowns = (items) => {
-    const countdownIntervals = {};
-
-    items.forEach((item) => {
-        if (item.expiryDate) {
-            const updateCountdown = () => {
-                const timeLeft = new Date(item.expiryDate).getTime() - Date.now();
-
-                if (timeLeft <= 0) {
-                    clearInterval(countdownIntervals[item.id]);
-                    setCountdowns((prev) => ({ ...prev, [item.id]: "00:00:00" }));
-                } else {
-                    const formatTime = (time) => String(Math.floor(time)).padStart(2, "0");
-                    const hours = formatTime((timeLeft / (1000 * 60 * 60)) % 24);
-                    const minutes = formatTime((timeLeft / (1000 * 60)) % 60);
-                    const seconds = formatTime((timeLeft / 1000) % 60);
-                    setCountdowns((prev) => ({ ...prev, [item.id]: `${hours}:${minutes}:${seconds}` }));
-                }
-            };
-            
-            updateCountdown(); 
-            countdownIntervals[item.id] = setInterval(updateCountdown, 1000);
-        }
-    });
-};
 
   return (
     <section id="section-items" className="no-bottom">
@@ -77,6 +79,7 @@ const NewItems = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
+
           {loading ? (
             <OwlCarousel className="owl-theme" loop margin={10} nav items={4}>
               {Array(4)
@@ -88,6 +91,7 @@ const NewItems = () => {
                 ))}
             </OwlCarousel>
           ) : (
+            <>
             <OwlCarousel className="owl-theme" loop margin={10} nav items={4}>
               {itemsCarousel.map((item, index) => (
                 <div className="item" key={index}>
@@ -107,11 +111,7 @@ const NewItems = () => {
                         <i className="fa fa-check"></i>
                       </Link>
                     </div>
-
-                    <div className="de_countdown">
-                      {countdowns[item.id] || "00:00:00"}
-                    </div>
-
+                    <CountdownTimer expiryDate={item.expiryDate} />
                     <div className="nft__item_wrap">
                       <Link to="/item-details">
                         <img
@@ -135,6 +135,7 @@ const NewItems = () => {
                 </div>
               ))}
             </OwlCarousel>
+            </>
           )}
         </div>
       </div>
@@ -143,4 +144,3 @@ const NewItems = () => {
 };
 
 export default NewItems;
-
