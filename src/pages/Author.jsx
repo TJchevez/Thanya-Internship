@@ -10,7 +10,7 @@ const Author = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     async function fetchPosts() {
-      const { data } = await axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems?Author=${authorId}`);
+      const { data } = await axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems?author=${authorId}`);
       setPosts(data);
     }
     fetchPosts();

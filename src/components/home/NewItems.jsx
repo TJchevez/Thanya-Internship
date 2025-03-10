@@ -98,7 +98,7 @@ const NewItems = () => {
                   <div className="nft__item">
                     <div className="author_list_pp">
                       <Link
-                        to="/author/:authorId"
+                        to={`/author/${item.authorId}`}
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title={`Creator: ${item.creatorName}`}
@@ -113,7 +113,7 @@ const NewItems = () => {
                     </div>
                     <CountdownTimer expiryDate={item.expiryDate} />
                     <div className="nft__item_wrap">
-                      <Link to="/item-details">
+                      <Link to={`/item-details/${item.nftId}`}>
                         <img
                           src={item.nftImage}
                           className="lazy nft__item_preview"

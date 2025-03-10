@@ -1,18 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EthImage from "../images/ethereum.svg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import nftImage from "../images/nftImage.jpg";
+import axios from "axios"
 
 const ItemDetails = () => {
+  const { nftId } = useParams();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    async function fetchPosts() {
+      const { data } = await axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems?itemDetails=${nftId}`);
+      setPosts(data);
+    }
+    fetchPosts();
+  }, [])
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
+    <>
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
         <div id="top"></div>
+        {
+          posts.map(post => (
+        
         <section aria-label="section" className="mt90 sm-mt-0">
           <div className="container">
             <div className="row">
@@ -86,8 +100,11 @@ const ItemDetails = () => {
             </div>
           </div>
         </section>
+        ))
+      }
       </div>
     </div>
+    </>
   );
 };
 
