@@ -21,7 +21,7 @@ const SkeletonLoader = () => (
 );
 
 const CountdownTimer = memo(({ expiryDate }) => {
-  const [timeLeft, setTimeLeft] = useState("00:00:00");
+  const [timeLeft, setTimeLeft] = useState("EXPIRED");
 
   useEffect(() => {
     if (!expiryDate) return;
@@ -98,7 +98,7 @@ const NewItems = () => {
                   <div className="nft__item">
                     <div className="author_list_pp">
                       <Link
-                        to="/author"
+                        to="/author/:authorId"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title={`Creator: ${item.creatorName}`}
