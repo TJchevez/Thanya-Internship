@@ -24,9 +24,8 @@ const ItemDetails = () => {
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
         <div id="top"></div>
-        {
-          posts.map(post => (
-        
+        {posts.length > 0 && (
+            <div key={0}>
         <section aria-label="section" className="mt90 sm-mt-0">
           <div className="container">
             <div className="row">
@@ -100,8 +99,8 @@ const ItemDetails = () => {
             </div>
           </div>
         </section>
-        ))
-      }
+       </div>
+      )}
       </div>
     </div>
     </>
