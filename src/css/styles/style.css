@@ -16718,6 +16718,12 @@ img {
   justify-content: space-between;
   align-items: center;
 }
+
+.skeleton-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .nft-image {
   height: 100%;
   width: 100%;
