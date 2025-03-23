@@ -10,6 +10,7 @@ const TopSellers = () => {
           <div className="col-lg-12">
             <div className="text-center">
               <h2>Top Sellers</h2>
+              {/* testiing */}
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
