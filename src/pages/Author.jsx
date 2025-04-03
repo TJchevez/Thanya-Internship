@@ -85,7 +85,7 @@ const Author = () => {
                         <>
                           <div className="profile_follower">
                             {authorData.followers + (isFollowing ? 1 : 0)}{" "}
-                            followers
+                            followers TEST
                           </div>
                           {isFollowing ? (
                             <Link
