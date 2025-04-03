@@ -11,14 +11,10 @@ const ItemDetails = () => {
 
   useEffect(() => {
     async function fetchNftItem() {
-      try {
         const { data } = await axios.get(
           `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${id}`
         );
         setNftItem(data);
-      } catch (error) {
-        console.error("Error fetching NFT details:", error);
-      }
       setLoading(false);
     }
     fetchNftItem();
