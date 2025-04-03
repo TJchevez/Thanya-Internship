@@ -12,15 +12,11 @@ const Author = () => {
   const [loading, setLoading] = useState(true);
 
   const getAuthorData = useCallback(async () => {
-    try {
       const response = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
       );
 
       setAuthorData(response.data);
-    } catch (error) {
-      console.error("Error fetching author data:", error);
-    }
     setLoading(false);
   }, [id]);
 
@@ -85,7 +81,7 @@ const Author = () => {
                         <>
                           <div className="profile_follower">
                             {authorData.followers + (isFollowing ? 1 : 0)}{" "}
-                            followers TEST
+                            followers 
                           </div>
                           {isFollowing ? (
                             <Link
