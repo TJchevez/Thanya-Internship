@@ -31,10 +31,9 @@ const HotCollections = () => {
 
   async function datacollection() {
     setLoading(true);
-    const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections");
+    const { data } = await axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections`);
     setCarousel(data);
     setLoading(false);
-    console.log(data)
   }
 
   useEffect(() => {
