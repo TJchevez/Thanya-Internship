@@ -42,7 +42,7 @@ const Landing = () => {
               <div className="mb-sm-30"></div>
             </div>
             <div className="col-md-6 xs-hide">
-              <img src={NFT} data-aos="zoom-in" data-aos-delay="800" data-aos-duration="2500" className="lazy img-fluid" alt="" />
+              <img src={NFT} data-aos="zoom-in" data-aos-delay="800" data-aos-duration="2000" className="lazy img-fluid" alt="" />
             </div>
           </div>
         </div>
