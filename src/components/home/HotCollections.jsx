@@ -8,6 +8,7 @@ import AOS from "aos";
 import 'aos/dist/aos.css';
 
 const SkeletonLoader = () => (
+  // From Main!!! DO NOT REMOVE
   <>
     <div className="nft_coll">
       <div className="nft_wrap">
