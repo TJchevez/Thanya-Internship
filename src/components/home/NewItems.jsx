@@ -5,6 +5,8 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import CountdownTimer from "../CountdownTimer";
+import AOS from "aos";
+import 'aos/dist/aos.css';
 
 const SkeletonLoader = () => (
   <div className="nft__item">
@@ -39,13 +41,17 @@ const NewItems = () => {
     newItemsData();
   }, []);
 
+    useEffect(()=>{
+      AOS.init();
+    }, [])
+
   return (
     <section id="section-items" className="no-bottom">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>New Items</h2>
+              <h2 data-aos="zoom-out" data-aos-duration="1000">New Items</h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
@@ -62,7 +68,7 @@ const NewItems = () => {
             </OwlCarousel>
           ) : (
             <>
-            <OwlCarousel className="owl-theme" loop margin={10} nav items={4}>
+            <OwlCarousel data-aos="zoom-out" data-aos-duration="800" className="owl-theme" loop margin={10} nav items={4}>
               {itemsCarousel.map((item, index) => (
                 <div className="item" key={index}>
                   <div className="nft__item">
