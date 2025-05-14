@@ -23,7 +23,6 @@ const SkeletonLoader = () => (
   </div>
 );
 
-
 const NewItems = () => {
   const [itemsCarousel, setItemsCarousel] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,9 +40,26 @@ const NewItems = () => {
     newItemsData();
   }, []);
 
-    useEffect(()=>{
-      AOS.init();
-    }, [])
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+  const carouselOptions = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      768: {
+        items: 3,
+      },
+      992: {
+        items: 4,
+      }
+    }
+  };
 
   return (
     <section id="section-items" className="no-bottom">
@@ -57,7 +73,7 @@ const NewItems = () => {
           </div>
 
           {loading ? (
-            <OwlCarousel className="owl-theme" loop margin={10} nav items={4}>
+            <OwlCarousel className="owl-theme" {...carouselOptions}>
               {Array(4)
                 .fill()
                 .map((_, index) => (
@@ -68,49 +84,54 @@ const NewItems = () => {
             </OwlCarousel>
           ) : (
             <>
-            <OwlCarousel data-aos="zoom-out" data-aos-duration="800" className="owl-theme" loop margin={10} nav items={4}>
-              {itemsCarousel.map((item, index) => (
-                <div className="item" key={index}>
-                  <div className="nft__item">
-                    <div className="author_list_pp">
-                      <Link
-                        to={`/author/${item.authorId}`}
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title={`Creator: ${item.creatorName}`}
-                      >
-                        <img
-                          className="lazy"
-                          src={item.authorImage}
-                          alt=""
-                        />
-                        <i className="fa fa-check"></i>
-                      </Link>
-                    </div>
-                    {item.expiryDate && <CountdownTimer expiryDate={item.expiryDate} />}
-                    <div className="nft__item_wrap">
-                      <Link to={`/item-details/${item.nftId}`}>
-                        <img
-                          src={item.nftImage}
-                          className="lazy nft__item_preview"
-                          alt=""
-                        />
-                      </Link>
-                    </div>
-                    <div className="nft__item_info">
-                      <Link to="/item-details">
-                        <h4>{item.title}</h4>
-                      </Link>
-                      <div className="nft__item_price">{item.price} ETH</div>
-                      <div className="nft__item_like">
-                        <i className="fa fa-heart"></i>
-                        <span>{item.likes}</span>
+              <OwlCarousel
+                data-aos="zoom-out"
+                data-aos-duration="800"
+                className="owl-theme"
+                {...carouselOptions}
+              >
+                {itemsCarousel.map((item, index) => (
+                  <div className="item" key={index}>
+                    <div className="nft__item">
+                      <div className="author_list_pp">
+                        <Link
+                          to={`/author/${item.authorId}`}
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          title={`Creator: ${item.creatorName}`}
+                        >
+                          <img
+                            className="lazy"
+                            src={item.authorImage}
+                            alt=""
+                          />
+                          <i className="fa fa-check"></i>
+                        </Link>
+                      </div>
+                      {item.expiryDate && <CountdownTimer expiryDate={item.expiryDate} />}
+                      <div className="nft__item_wrap">
+                        <Link to={`/item-details/${item.nftId}`}>
+                          <img
+                            src={item.nftImage}
+                            className="lazy nft__item_preview"
+                            alt=""
+                          />
+                        </Link>
+                      </div>
+                      <div className="nft__item_info">
+                        <Link to="/item-details">
+                          <h4>{item.title}</h4>
+                        </Link>
+                        <div className="nft__item_price">{item.price} ETH</div>
+                        <div className="nft__item_like">
+                          <i className="fa fa-heart"></i>
+                          <span>{item.likes}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </OwlCarousel>
+                ))}
+              </OwlCarousel>
             </>
           )}
         </div>

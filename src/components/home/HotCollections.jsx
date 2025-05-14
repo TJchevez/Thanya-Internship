@@ -17,7 +17,7 @@ const SkeletonLoader = () => (
         <a href="">
           <div className="skeleton-box skeleton-pp-coll"></div>
         </a>
-        <i class="fa fa-check"></i>
+        <i className="fa fa-check"></i>
       </div>
       <div className="skeleton-box skeleton-title"></div>
       <div className="skeleton-box skeleton-code"></div>
@@ -34,16 +34,33 @@ const HotCollections = () => {
     const { data } = await axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections`);
     setCarousel(data);
     setLoading(false);
-    console.log(data)
+    console.log(data);
   }
 
   useEffect(() => {
     datacollection();
   }, []);
 
-   useEffect(()=>{
-      AOS.init();
-    }, [])
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+  const carouselOptions = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      768: {
+        items: 3,
+      },
+      992: {
+        items: 4,
+      }
+    }
+  };
 
   return (
     <section id="section-collections" className="no-bottom">
@@ -56,7 +73,7 @@ const HotCollections = () => {
             </div>
           </div>
           {loading ? (
-            <OwlCarousel className="owl-theme" loop margin={10} nav>
+            <OwlCarousel className="owl-theme" {...carouselOptions}>
               {Array(5)
                 .fill()
                 .map((_, index) => (
@@ -68,7 +85,12 @@ const HotCollections = () => {
           ) : (
             <>
               {carousel.length > 0 && (
-                <OwlCarousel data-aos="zoom-out" data-aos-duration="800" className="owl-theme" loop margin={10} nav>
+                <OwlCarousel
+                  data-aos="zoom-out"
+                  data-aos-duration="800"
+                  className="owl-theme"
+                  {...carouselOptions}
+                >
                   {carousel.map((nft, index) => (
                     <div key={index}>
                       <div className="nft_coll">
