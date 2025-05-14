@@ -10725,6 +10725,8 @@ i.big {
   margin: 30px 0 30px 0;
 }
 
+
+
 .owl-item.active.center .feature-box-type-2 {
   transform: scale(1.05);
 }
@@ -16751,3 +16753,5 @@ img {
 .no-cursor {
   cursor: not-allowed;
 }
+
+
